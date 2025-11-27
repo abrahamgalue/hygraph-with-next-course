@@ -4,4 +4,15 @@ const hygraphClient = Graffle.create().transport({
   url: process.env.HYGRAPH_ENDPOINT,
 })
 
-export const QUERIES = {}
+export const QUERIES = {
+  aboutPage: hygraphClient.gql`
+		query AboutPage {
+			page(where: {slug: "about"}) {
+				title
+				content {
+					html
+				}
+			}
+		}
+	`,
+}
