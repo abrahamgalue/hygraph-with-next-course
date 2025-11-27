@@ -15,4 +15,16 @@ export const QUERIES = {
 			}
 		}
 	`,
+  posts: hygraphClient.gql`
+		query Posts {
+			posts(orderBy: publishedAt_DESC) {
+				title
+				summary
+				thumbnail {
+					url
+				}
+				slug
+			}
+		}
+	`,
 }
