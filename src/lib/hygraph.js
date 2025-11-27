@@ -10,7 +10,7 @@ export const QUERIES = {
 			page(where: {slug: "about"}) {
 				title
 				content {
-					html
+					raw
 				}
 			}
 		}
