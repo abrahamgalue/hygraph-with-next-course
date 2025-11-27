@@ -13,3 +13,9 @@ export async function getPosts() {
 
   return res.posts
 }
+
+export async function getPostBySlug(slug) {
+  const res = await QUERIES.postBySlug.send({ slug })
+
+  return res.post
+}

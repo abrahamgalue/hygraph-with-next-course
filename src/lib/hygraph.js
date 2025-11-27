@@ -27,4 +27,18 @@ export const QUERIES = {
 			}
 		}
 	`,
+  postBySlug: hygraphClient.gql`
+		query PostBySlug($slug: String!) {
+			post(where: {slug: $slug}) {
+				title
+				summary
+				content {
+					raw
+				}
+				createdBy {
+					name
+				}
+			}
+		}
+	`,
 }
