@@ -16,16 +16,25 @@ export const QUERIES = {
 		}
 	`,
   posts: hygraphClient.gql`
-		query Posts {
-			posts(orderBy: publishedAt_DESC) {
-				title
-				summary
-				thumbnail {
-					url
-				}
-				slug
-			}
-		}
+		query Posts($cursor: String) {
+      postsConnection(orderBy: publishedAt_DESC, first: 3, after: $cursor) {
+        posts: edges {
+          cursor
+          post: node {
+            slug
+            summary
+            title
+            content {
+              html
+            }
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
 	`,
   postBySlug: hygraphClient.gql`
 		query PostBySlug($slug: String!) {

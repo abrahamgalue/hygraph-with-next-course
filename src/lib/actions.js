@@ -8,10 +8,12 @@ export async function getAboutPage() {
   return res.page
 }
 
-export async function getPosts() {
-  const res = await QUERIES.posts.send()
+export async function getPosts(cursor = null) {
+  const res = await QUERIES.posts.send({ cursor })
 
-  return res.posts
+  const { posts, pageInfo } = res.postsConnection
+
+  return { posts, pageInfo }
 }
 
 export async function getPostBySlug(slug) {

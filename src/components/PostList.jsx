@@ -1,16 +1,25 @@
 'use client'
 
 import { useState } from 'react'
+import { getPosts } from '@/lib/actions'
 
 import GradientButton from './GradientButton'
 import Image from 'next/image'
 
-export default function PostList({ initialPosts }) {
+export default function PostList({ initialPosts, initialPageInfo }) {
   const [posts, setPosts] = useState(initialPosts)
+  const [pageInfo, setPageInfo] = useState(initialPageInfo)
+
+  async function handleLoadMore() {
+    const data = await getPosts(pageInfo.endCursor)
+
+    setPosts((oldPosts) => [...oldPosts, ...data.posts])
+    setPageInfo(data.pageInfo)
+  }
 
   return (
     <div>
-      {posts.map((post) => (
+      {posts.map(({ post }) => (
         <article
           key={post.slug}
           className="blog-card-gradient-border blog-card"
@@ -21,7 +30,6 @@ export default function PostList({ initialPosts }) {
             height={150}
             alt={`Thumbnail for ${post.title}`}
             className="blog-card-image"
-            unoptimized
           />
           <div className="blog-card-content">
             <h3 className="blog-card-title">{post.title}</h3>
@@ -37,11 +45,16 @@ export default function PostList({ initialPosts }) {
         </article>
       ))}
 
-      <div className="text-center mt-8">
-        <button className="py-2 px-4 bg-gray-200 rounded-sm cursor-pointer">
-          Load More...
-        </button>
-      </div>
+      {pageInfo.hasNextPage && (
+        <div className="text-center mt-8">
+          <button
+            onClick={handleLoadMore}
+            className="py-2 px-4 bg-gray-200 rounded-sm cursor-pointer"
+          >
+            Load More...
+          </button>
+        </div>
+      )}
     </div>
   )
 }

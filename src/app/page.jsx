@@ -2,7 +2,7 @@ import PostList from '@/components/PostList'
 import { getPosts } from '@/lib/actions'
 
 export default async function HomePage() {
-  const posts = await getPosts()
+  const { posts, pageInfo } = await getPosts()
 
   return (
     <div>
@@ -18,7 +18,7 @@ export default async function HomePage() {
 
       <section className="homepage-blog-section">
         <div className="homepage-blog-container">
-          <PostList initialPosts={posts} />
+          <PostList initialPosts={posts} initialPageInfo={pageInfo} />
         </div>
       </section>
     </div>
