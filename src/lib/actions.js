@@ -21,3 +21,9 @@ export async function getPostBySlug(slug) {
 
   return res.post
 }
+
+export async function getPostsByAuthor(name) {
+  const res = await QUERIES.postsByAuthor.send({ name })
+
+  return res.posts
+}

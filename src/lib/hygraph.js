@@ -24,6 +24,9 @@ export const QUERIES = {
             slug
             summary
             title
+						thumbnail {
+              url
+            }
             content {
               html
             }
@@ -47,6 +50,14 @@ export const QUERIES = {
 				createdBy {
 					name
 				}
+			}
+		}
+	`,
+  postsByAuthor: hygraphClient.gql`
+		query PostsByAuthor($name: String!) {
+			posts(first: 3, where: {updatedBy: {name: $name}}) {
+				slug
+				title
 			}
 		}
 	`,

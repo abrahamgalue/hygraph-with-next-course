@@ -1,10 +1,12 @@
-import { getPostBySlug } from '@/lib/actions'
+import { getPostBySlug, getPostsByAuthor } from '@/lib/actions'
 import { RichText } from '@graphcms/rich-text-react-renderer'
+import Link from 'next/link'
 
 export default async function BlogDetailsPage({ params }) {
   const { slug } = await params
 
   const { title, summary, content, createdBy } = await getPostBySlug(slug)
+  const posts = await getPostsByAuthor(createdBy.name)
 
   return (
     <div className="blog-details-container">
@@ -32,7 +34,15 @@ export default async function BlogDetailsPage({ params }) {
           <div className="sidebar-card">
             <h3 className="sidebar-title">More Posts by {createdBy.name}</h3>
             <div className="sidebar-links">
-              <p>add more author posts here</p>
+              {posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="sidebar-link"
+                >
+                  {post.title}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
