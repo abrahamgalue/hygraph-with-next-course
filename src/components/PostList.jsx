@@ -25,7 +25,7 @@ export default function PostList({ initialPosts, initialPageInfo }) {
           className="blog-card-gradient-border blog-card"
         >
           <Image
-            src="https://placehold.co/150x150"
+            src={post.thumbnail?.url || 'https://placehold.co/150x150'}
             width={150}
             height={150}
             alt={`Thumbnail for ${post.title}`}
