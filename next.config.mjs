@@ -9,8 +9,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*.graphassets.com',
-        pathname: '/**',
+        hostname: '**.graphassets.com',
       },
     ],
     dangerouslyAllowSVG: true,

@@ -21,17 +21,19 @@ export default async function AboutPage() {
                 {children}
               </blockquote>
             ),
-            a: ({ children, href }) => {
-              if (href.startsWith('http'))
+            a: ({ children, href, rel }) => {
+              if (href.match(/^https?:\/\/|^\/\//i)) {
                 return (
                   <a
                     href={href}
-                    target="_blank"
+                    target={'_blank'}
+                    rel={rel || 'noopener noreferrer'}
                     className="text-indigo-500 underline"
                   >
                     {children}
                   </a>
                 )
+              }
               return (
                 <Link href={href} className="text-indigo-500 underline">
                   {children}
